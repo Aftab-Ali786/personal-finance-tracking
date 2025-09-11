@@ -24,8 +24,12 @@ mongoose.connect('mongodb://localhost:27017/finance-tracking', {
 
     const Transaction = mongoose.model('Transaction', transactionSchema);
 
+   
+    app.post('/api/transactions', async (req, res) => {
 
+    })
 
     app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
     });
+   
