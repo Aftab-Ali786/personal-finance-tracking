@@ -17,7 +17,7 @@ const EditForm = () => {
   useEffect(() => {
     const fetchTransaction = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/transactions/${id}`);
+        const res = await fetch(`http://localhost:5000/${id}/edit`);
         const data = await res.json();
         setFormData({
           title: data.title,

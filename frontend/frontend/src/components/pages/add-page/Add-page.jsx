@@ -6,3 +6,4 @@ return(
 <>
 </>
 )}
+export default AddPage;

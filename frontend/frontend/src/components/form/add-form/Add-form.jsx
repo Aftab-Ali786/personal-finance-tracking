@@ -13,7 +13,7 @@ const AddForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch("http://localhost:5000/api/transactions", {
+      await fetch("http://localhost:5000/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -28,6 +28,7 @@ const AddForm = () => {
       });
       setSuccess(true);
       setTimeout(() => setSuccess(false), 4000);
+        if (onAdd) onAdd(saved);
     } catch (err) {
       console.error("Error adding transaction:", err);
     }
