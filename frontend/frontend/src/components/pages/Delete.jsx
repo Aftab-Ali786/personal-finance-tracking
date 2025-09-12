@@ -5,11 +5,11 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 export default function Delete() {
 
 const fetchTransaction = async (id) => {
-  const res = await fetch(`http://localhost:5000/${id}`);
+  const res = await fetch(`http://localhost:5000/api/transactions/${id}`);
   return await res.json();
 }
 const deleteTransaction = async (id) => {
-  await fetch(`http://localhost:5000/${id}/delete`, {
+  await fetch(`http://localhost:5000/api/transactions/${id}/delete`, {
     method: "DELETE",
   });
 }

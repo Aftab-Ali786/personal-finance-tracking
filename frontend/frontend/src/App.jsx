@@ -4,27 +4,14 @@ import HomePage from "./components/pages/home-page/Home-page";
 import AddForm from "./components/form/add-form/Add-form";
 import Delete from "./components/pages/Delete";
 import EditForm from "./components/form/edit-form/Edit-Form";
+import Navbar from "./components/component/navbar";
 
 export default function App() {
   return (
     <BrowserRouter>
+    <Navbar/>
       <div className="container">
-        <header
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "16px 0",
-          }}
-        >
-          <h1>Personal Finance Tracker</h1>
-          <nav>
-            <Link to="/" style={{ marginRight: 12 }}>
-              Home
-            </Link>
-            <Link to="/add">Add</Link>
-          </nav>
-        </header>
+       
 
         <Routes>
           <Route path="/" element={<HomePage />} />

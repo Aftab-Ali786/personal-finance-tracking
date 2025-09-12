@@ -6,7 +6,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DonutChart = ({ data, total }) => {
   const options = {
-    cutout: "75%", // makes it a donut
+    cutout: "75%", 
     plugins: {
       legend: {
         display: true,

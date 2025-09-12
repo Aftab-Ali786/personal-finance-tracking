@@ -26,11 +26,11 @@ const AddForm = () => {
         throw new Error("Failed to add transaction");
       }
 
-      const saved = await res.json(); // ✅ get backend response
+      const saved = await res.json();
 
       console.log("Transaction saved:", saved);
 
-      // Reset form
+      
       setFormData({
         title: "",
         amount: "",
@@ -53,7 +53,7 @@ const AddForm = () => {
     >
       <h2 className="text-xl font-bold mb-4">Add Transaction</h2>
 
-      {/* Title */}
+      
       <div className="mb-3">
         <label className="block text-sm font-medium">Title</label>
         <input
@@ -68,7 +68,7 @@ const AddForm = () => {
         />
       </div>
 
-      {/* Amount */}
+      
       <div className="mb-3">
         <label className="block text-sm font-medium">Amount</label>
         <input
@@ -83,7 +83,7 @@ const AddForm = () => {
         />
       </div>
 
-      {/* Date */}
+      
       <div className="mb-3">
         <label className="block text-sm font-medium">Date</label>
         <input
@@ -97,7 +97,7 @@ const AddForm = () => {
         />
       </div>
 
-      {/* Category */}
+    
       <div className="mb-3">
         <label className="block text-sm font-medium">Category</label>
         <select
@@ -117,7 +117,7 @@ const AddForm = () => {
         </select>
       </div>
 
-      {/* Type */}
+      
       <div className="mb-3">
         <label className="block text-sm font-medium">Type</label>
         <select
@@ -143,7 +143,7 @@ const AddForm = () => {
 
       {success && (
         <p className="text-green-600 text-sm mt-3">
-          ✅ Transaction added successfully!
+           Transaction added successfully!
         </p>
       )}
     </form>
