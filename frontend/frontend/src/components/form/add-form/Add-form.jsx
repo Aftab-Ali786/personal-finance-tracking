@@ -7,28 +7,40 @@ const AddForm = () => {
     amount: "",
     date: "",
     category: "",
+    type: "",
   });
   const [success, setSuccess] = React.useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch("http://localhost:5000/add", {
+      const res = await fetch("http://localhost:5000/api/transactions/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
+
+      if (!res.ok) {
+        throw new Error("Failed to add transaction");
+      }
+
+      const saved = await res.json(); // ✅ get backend response
+
+      console.log("Transaction saved:", saved);
+
+      // Reset form
       setFormData({
         title: "",
         amount: "",
         date: "",
         category: "",
+        type: "",
       });
+
       setSuccess(true);
       setTimeout(() => setSuccess(false), 4000);
-        if (onAdd) onAdd(saved);
     } catch (err) {
       console.error("Error adding transaction:", err);
     }
@@ -52,12 +64,13 @@ const AddForm = () => {
           }
           className="w-full p-2 border rounded"
           placeholder="Enter title"
+          required
         />
       </div>
 
       {/* Amount */}
       <div className="mb-3">
-        <label className="block text-sm font-medium">Amount (+/-)</label>
+        <label className="block text-sm font-medium">Amount</label>
         <input
           type="number"
           value={formData.amount}
@@ -65,7 +78,8 @@ const AddForm = () => {
             setFormData({ ...formData, amount: e.target.value })
           }
           className="w-full p-2 border rounded"
-          placeholder="e.g. -500 for expense, +2000 for income"
+          placeholder="e.g. 2000 for income, 500 for expense"
+          required
         />
       </div>
 
@@ -79,6 +93,7 @@ const AddForm = () => {
             setFormData({ ...formData, date: e.target.value })
           }
           className="w-full p-2 border rounded"
+          required
         />
       </div>
 
@@ -91,6 +106,7 @@ const AddForm = () => {
             setFormData({ ...formData, category: e.target.value })
           }
           className="w-full p-2 border rounded"
+          required
         >
           <option value="">Select category</option>
           <option value="Food">Food</option>
@@ -98,6 +114,23 @@ const AddForm = () => {
           <option value="Salary">Salary</option>
           <option value="Shopping">Shopping</option>
           <option value="Other">Other</option>
+        </select>
+      </div>
+
+      {/* Type */}
+      <div className="mb-3">
+        <label className="block text-sm font-medium">Type</label>
+        <select
+          value={formData.type}
+          onChange={(e) =>
+            setFormData({ ...formData, type: e.target.value })
+          }
+          className="w-full p-2 border rounded"
+          required
+        >
+          <option value="">Select type</option>
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
         </select>
       </div>
 
@@ -110,8 +143,7 @@ const AddForm = () => {
 
       {success && (
         <p className="text-green-600 text-sm mt-3">
-          
-           Transaction added successfully!
+          ✅ Transaction added successfully!
         </p>
       )}
     </form>

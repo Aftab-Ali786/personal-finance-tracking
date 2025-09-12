@@ -1,55 +1,42 @@
 import React from "react";
-import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
+import { Doughnut } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
-// Register components
-ChartJS.register(
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  Title,
-  Tooltip,
-  Legend
-);
+ChartJS.register(ArcElement, Tooltip, Legend);
 
-const LineChart = () => {
-  const data = {
-    labels: ["January", "February", "March", "April", "May", "June"],
-    datasets: [
-      {
-        label: "Monthly Expenses",
-        data: [400, 300, 500, 700, 200, 600],
-        fill: false,
-        borderColor: "rgba(75,192,192,1)",
-        tension: 0.4, // smooth curve
-      },
-    ],
-  };
-
+const DonutChart = ({ data, total }) => {
   const options = {
-    responsive: true,
+    cutout: "75%", // makes it a donut
     plugins: {
       legend: {
-        position: "top",
-      },
-      title: {
         display: true,
-        text: "Line Chart Example",
+        position: "bottom",
+      },
+      tooltip: {
+        enabled: true,
       },
     },
   };
 
-  return <Line data={data} options={options} />;
+  return (
+    <div style={{ width: "250px", margin: "20px" }}>
+      <Doughnut data={data} options={options} />
+      <div
+        style={{
+          position: "relative",
+          top: "-140px",
+          textAlign: "center",
+          fontSize: "24px",
+          fontWeight: "bold",
+        }}
+      >
+        {total}
+        <div style={{ fontSize: "12px", fontWeight: "normal" }}>
+          Total Amount
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export default LineChart;
+export default DonutChart;

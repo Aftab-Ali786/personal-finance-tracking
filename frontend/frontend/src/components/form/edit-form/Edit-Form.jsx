@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 const EditForm = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -10,50 +10,52 @@ const EditForm = () => {
     amount: "",
     date: "",
     category: "",
+    type: "",
   });
   const [success, setSuccess] = useState(false);
 
   // to acess the existing data by id
-  useEffect(() => {
-    const fetchTransaction = async () => {
-      try {
-        const res = await fetch(`http://localhost:5000/${id}/edit`);
-        const data = await res.json();
-        setFormData({
-          title: data.title,
-          amount: data.amount,
-          date: data.date.split("T")[0], 
-          category: data.category,
-        });
-      } catch (err) {
-        console.error("Error fetching transaction:", err);
-      }
-    };
-
-    fetchTransaction();
-  }, [id]);
-
-  // to update the data
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+ useEffect(() => {
+  const fetchTransaction = async () => {
     try {
-      await fetch(`http://localhost:5000/api/transactions/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
+      const res = await fetch(`http://localhost:5000/api/transactions/${id}`);
+      const data = await res.json();
+      setFormData({
+        title: data.title,
+        amount: data.amount,
+        date: data.date ? data.date.split("T")[0] : "",
+        category: data.category,
+        type: data.type,
       });
-
-      setSuccess(true);
-      setTimeout(() => {
-        setSuccess(false);
-        navigate("/"); 
-      }, 2000);
     } catch (err) {
-      console.error("Error updating transaction:", err);
+      console.error("Error fetching transaction:", err);
     }
   };
+
+  fetchTransaction();
+}, [id]);
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    await fetch(`http://localhost:5000/api/transactions/${id}/edit`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    setSuccess(true);
+    setTimeout(() => {
+      setSuccess(false);
+      navigate("/");
+    }, 2000);
+  } catch (err) {
+    console.error("Error updating transaction:", err);
+  }
+};
+
 
   return (
     <form
@@ -62,7 +64,7 @@ const EditForm = () => {
     >
       <h2 className="text-xl font-bold mb-4">Edit Transaction</h2>
 
-      
+
       <div className="mb-3">
         <label className="block text-sm font-medium">Title</label>
         <input
@@ -76,7 +78,7 @@ const EditForm = () => {
         />
       </div>
 
-      
+
       <div className="mb-3">
         <label className="block text-sm font-medium">Amount (+/-)</label>
         <input
@@ -90,7 +92,7 @@ const EditForm = () => {
         />
       </div>
 
-    
+
       <div className="mb-3">
         <label className="block text-sm font-medium">Date</label>
         <input
@@ -103,7 +105,7 @@ const EditForm = () => {
         />
       </div>
 
-      
+
       <div className="mb-3">
         <label className="block text-sm font-medium">Category</label>
         <select
@@ -121,6 +123,21 @@ const EditForm = () => {
           <option value="Other">Other</option>
         </select>
       </div>
+      <div className="mb-3">
+        <label className="block text-sm font-medium">Type</label>
+        <select
+          value={formData.type}
+          onChange={(e) =>
+            setFormData({ ...formData, type: e.target.value })
+          }
+          className="w-full p-2 border rounded"
+          required
+        >
+          <option value="">Select type</option>
+          <option value="income">Income</option>
+          <option value="expense">Expense</option>
+        </select>
+      </div>
 
       <button
         type="submit"
@@ -131,7 +148,7 @@ const EditForm = () => {
 
       {success && (
         <p className="text-green-600 text-sm mt-3">
-           Transaction updated successfully!
+          Transaction updated successfully!
         </p>
       )}
     </form>
