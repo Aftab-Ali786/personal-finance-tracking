@@ -1,26 +1,94 @@
-# React + Vite
+# 💰 Personal Finance Tracker (React + Vite + MERN)
 
-This is the personal finance tracking website 
-essential of website 
-1 to track the incom of the particular person 
-2 to track the expence of the particular person 
-3 track the whole incom and expence and display in the charter
-4 create the graph of incom and expence 
-5 list the data on the bases of month whwn ever you click on the month it will display all the transaction of the particular month 
-6 the current month all the transaction display doen the charter 
----------------------------------------------------------------------------------------------------------------------
+A simple yet powerful **personal finance tracking** web app built using the **MERN stack** (MongoDB, Express, React, Node.js) with Vite for the frontend.
+
+---
+
+## ✨ Features
+
+- ✅ Track **income** and **expenses**
+- ✅ View **total balance, income, and expenses**
+- ✅ Interactive **charts and graphs** for insights  
+  - Doughnut, Pie, and Line charts  
+- ✅ **Month-wise transaction history**  
+- ✅ View **current month transactions** below charts  
+- ✅ **Add, edit, and delete transactions**
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1. Clone the repository
+```bash
+git clone <your-repo-link>
+cd finance-tracking
 
 
-Installation part 
-first cd to "finance-tracking"
-then cd to backend and run the cmd "npm install " then run  "node server.js" // remember you should have the MongoDB localy and mongodb compass to track the date 
-In other terminal cd to frontend again cd to frontend run the cmd "npm install" then run "npm run dev"
-now your project is running 
----------------------------------------------------------------------------------
+cd backend
+npm install
+node server.js
+⚠️ Make sure you have MongoDB installed and running locally.
+Use MongoDB Compass to view and manage your data.
 
-working part 
-Clickon add transaction and create your transaction  fill all the column 
-remember one thing 
-when ever you edit the transaction and change income to expence insert the - sign in front of the value is compalsary and visevesa if change expence to income remove the - sign 
 
-other things remain same change in other colum rether then incom and expance are same 
+
+cd frontend
+npm install
+npm run dev
+
+
+
+📝 Usage Guide
+
+Click “Add Transaction” to create a new transaction.
+
+Fill in all required fields:
+
+Title
+
+Amount
+
+Date
+
+Category
+
+Type (Income / Expense)
+
+Editing Transactions:
+
+If changing from Income → Expense, add a - (minus) sign before the amount.
+
+If changing from Expense → Income, remove the - sign.
+
+Other fields (title, category, date) can be updated normally.
+
+📊 Example Features in Action
+
+Dashboard: Shows income vs. expenses in charts
+
+Transactions List: View month-wise and current month’s records
+
+Charts:
+
+Income breakdown by category
+
+Expense breakdown by category
+
+Monthly summary line chart
+
+🛠️ Tech Stack
+
+Frontend: React + Vite, Chart.js
+
+Backend: Node.js, Express
+
+Database: MongoDB
+
+State Management: React Hooks
+
+📌 Notes
+
+Always maintain correct amount format when switching between Income and Expense.
+
+Project is designed for local MongoDB setup.
+
