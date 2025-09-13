@@ -14,14 +14,12 @@ const IncomeExpenseCharts = () => {
         console.error("Error fetching transactions:", err);
       }
     };
-    fetchTransactions();
+    fetchTransactions(),[refresh];
   }, []);
 
-  // split into income & expense
   const incomes = transactions.filter((t) => t.type === "income");
   const expenses = transactions.filter((t) => t.type === "expense");
 
-  // group by category
   const groupByCategory = (arr) =>
     arr.reduce((acc, t) => {
       acc[t.category] = (acc[t.category] || 0) + Number(t.amount);
@@ -51,19 +49,23 @@ const IncomeExpenseCharts = () => {
     ],
   };
 
-  const totalIncome = Object.values(incomeByCategory).reduce(
-    (a, b) => a + b,
-    0
-  );
-  const totalExpense = Object.values(expenseByCategory).reduce(
-    (a, b) => a + b,
-    0
-  );
+  const totalIncome = Object.values(incomeByCategory).reduce((a, b) => a + b, 0);
+  const totalExpense = Object.values(expenseByCategory).reduce((a, b) => a + b, 0);
 
   return (
     <div style={{ display: "flex", justifyContent: "center", gap: "40px" }}>
-      <DonutChart data={incomeData} total={`$${totalIncome}`} />
-      <DonutChart data={expenseData} total={`$${totalExpense}`} />
+      <DonutChart
+        key={JSON.stringify(incomeData)}
+        data={incomeData}
+        total={`$${totalIncome}`}
+        label="Income"
+      />
+      <DonutChart
+        key={JSON.stringify(expenseData)}
+        data={expenseData}
+        total={`$${totalExpense}`}
+        label="Expense"
+      />
     </div>
   );
 };

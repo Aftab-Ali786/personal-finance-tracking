@@ -4,9 +4,9 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const DonutChart = ({ data, total }) => {
+const DonutChart = ({ data, total, label }) => {
   const options = {
-    cutout: "75%", 
+    cutout: "75%",
     plugins: {
       legend: {
         display: true,
@@ -16,23 +16,34 @@ const DonutChart = ({ data, total }) => {
         enabled: true,
       },
     },
+    maintainAspectRatio: false,
   };
 
   return (
-    <div style={{ width: "250px", margin: "20px" }}>
+    <div
+      style={{
+        width: "250px",
+        height: "250px",
+        margin: "20px",
+        position: "relative",
+      }}
+    >
+      {/* Chart */}
       <Doughnut data={data} options={options} />
+
+      {/* Center Text */}
       <div
         style={{
-          position: "relative",
-          top: "-140px",
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
           textAlign: "center",
-          fontSize: "24px",
-          fontWeight: "bold",
         }}
       >
-        {total}
-        <div style={{ fontSize: "12px", fontWeight: "normal" }}>
-          Total Amount
+        <div style={{ fontSize: "20px", fontWeight: "bold" }}>{total}</div>
+        <div style={{ fontSize: "12px", fontWeight: "normal", color: "#555" }}>
+          {label || "Total"}
         </div>
       </div>
     </div>
